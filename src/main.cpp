@@ -89,14 +89,27 @@ void printInformation(const FontArray& font, std::string& location, std::string&
 }
 
 void showHelp() {
-    std::cout << std::endl;
-    std::cout << "This is your help." << std::endl;
-    std::cout << std::endl;
+    std::cout << "\n";
+    std::cout << "🌍🕒 geofetch - Terminal tool with Geo Info\n";
+    std::cout << "------------------------------------------\n";
+    std::cout << "Usage:\n";
+    std::cout << "  geofetch               Run with default font and color\n";
+    std::cout << "  geofetch -s <style>    Set font style (see 'style' command)\n";
+    std::cout << "  geofetch -c <color>    Set font color (e.g. red, blue, cyan, ...)\n";
+    std::cout << "  geofetch help          Show this help screen\n";
+    std::cout << "  geofetch style         List available font styles\n";
+    std::cout << "\n";
+    std::cout << "Controls:\n";
+    std::cout << "  Press 'q' or ESC to quit the clock\n";
+    std::cout << "\n";
+    std::cout << "\033[47;30mCreated by Mattia Loszach";
+    std::cout << "\n";
 }
 
 void showStyles() {
-    std::cout << "Available Fonts:\n";
+    std::cout << "Available Font Styles:\n";
     for (auto& [name, _] : FONT_MAP) std::cout << " - " << name << "\n";
+    std::cout << "\nUse one with: geofetch -s <style>\n";
 }
 
 // Parsing CLI arguments
@@ -118,14 +131,16 @@ bool parseArgs(int argc, char* argv[]) {
         // When using '-c'
         if (arg == "-c") {
             if (i + 1 >= argc || argv[i + 1][0] == '-') {
-                std::cerr << "Error: Missing argument after '-c'. Specify at least one color.\n";
+                std::cerr << "Error: Missing color after '-c'.\n";
+                std::cerr << "Usage: geofetch -c <color>\n";
                 return false;
             }
             std::string opt = argv[i + 1];
             std::transform(opt.begin(), opt.end(), opt.begin(),
                    [](unsigned char c) { return std::tolower(c); });
             if (COLOR_MAP.find(opt) == COLOR_MAP.end()) {
-                std::cerr << "Error: Color " << opt << " not found.\n";
+                std::cerr << "Error: Unknown color '" << opt << "'.\n";
+                std::cerr << "Available colors: red, green, yellow, blue, magenta, cyan, white\n";
                 return false;
             }
             color = COLOR_MAP[opt];
@@ -134,7 +149,8 @@ bool parseArgs(int argc, char* argv[]) {
         // When using '-s'
         else if (arg == "-s") {
             if (i + 1 >= argc || argv[i + 1][0] == '-') {
-                std::cerr << "Error: Missing argument after '-s'. Specify at least one style to include.\n";
+                std::cerr << "Error: Missing style after '-s'.\n";
+                std::cerr << "Usage: geofetch -s <style>\n";
                 return false;
             }
             fontStyle = argv[i + 1];
@@ -151,9 +167,12 @@ int main(int argc, char* argv[]) {
 
     auto it = FONT_MAP.find(fontStyle);
     if (it == FONT_MAP.end()) {
-        std::cerr << "Font " << fontStyle << " not found!\n";
-        std::cerr << "Available Fonts:\n";
-        for (auto& [name, _] : FONT_MAP) std::cerr << " - " << name << "\n";
+        std::cerr << "Error: Font style '" << fontStyle << "' not found.\n";
+        std::cerr << "Available font styles are:\n";
+        for (auto& [name, _] : FONT_MAP) {
+            std::cerr << "  - " << name << "\n";
+        }
+        std::cerr << "Use './geofetch style' to list styles.\n";
         return 1;
     }
 
