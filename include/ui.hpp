@@ -4,7 +4,7 @@
 #include <vector>
 #include <termios.h>
 
-// ========== Farbdefinitionen ==========
+// ========== Color definitions ==========
 extern const std::string RESET;
 extern const std::string RED;
 extern const std::string GREEN;
@@ -16,17 +16,17 @@ extern const std::string WHITE;
 
 extern std::unordered_map<std::string, std::string> COLOR_MAP;
 
-// Globale Einstellungen
+// Global Settings
 extern std::string color;
 extern std::string fontStyle;
 
-// Terminal-Konfiguration
+// Terminal-Configuration
 extern struct termios orig_termios;
 
 // ASCII-Font-Typ
 using FontArray = std::vector<std::vector<std::string>>;
 
-// ======= Funktionen (Deklarationen) =======
+// Funktions (Declarations)
 int getTerminalWidth();
 int getTerminalHeight();
 int countDisplayChars(const std::string& line);

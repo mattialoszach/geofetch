@@ -2,22 +2,22 @@
 #include "ui.hpp"
 #include "geo.hpp"
 
-#include <iostream>      // cout, cerr
-#include <thread>        // sleep_for
-#include <chrono>        // chrono::seconds
-#include <tuple>         // std::tuple unpacking (C++17)
-#include <string>        // std::string
-#include <algorithm>     // std::transform
-#include <cctype>        // std::tolower
-#include <unistd.h>      // read(), STDIN_FILENO
-#include <termios.h>     // Raw Mode Handling
-#include <sys/ioctl.h>   // getTerminalWidth(), getTerminalHeight()
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <tuple>
+#include <string>
+#include <algorithm>
+#include <cctype>
+#include <unistd.h>
+#include <termios.h>
+#include <sys/ioctl.h>
 
 
 void disableRawMode() {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
-    std::cout << "\033[?25h"; // Cursor wieder sichtbar machen
-    std::cout << "\033[2J\033[H"; // Bildschirm löschen
+    std::cout << "\033[?25h"; // Make Cursor visible
+    std::cout << "\033[2J\033[H"; // Clear screen
 }
 
 void enableRawMode() {
@@ -25,10 +25,10 @@ void enableRawMode() {
     atexit(disableRawMode);
 
     struct termios raw = orig_termios;
-    raw.c_lflag &= ~(ECHO | ICANON); // Kein Echo, kein Line-Buffering
+    raw.c_lflag &= ~(ECHO | ICANON); // No Echo, no Line-Buffering
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 
-    std::cout << "\033[?25l"; // Cursor ausblenden
+    std::cout << "\033[?25l"; // Hide Cursor
 }
 
 // Non-blocking getchar
@@ -41,8 +41,8 @@ int kbhit() {
 }
 
 
-// Uhrzeit anzeigen (zentriert & stabil)
-void printBigTime(const FontArray& font, std::string& location, std::string& dateAndTemp) {
+// Print centered & stabilized Information (Location, Time, Date, Temperature)
+void printInformation(const FontArray& font, std::string& location, std::string& dateAndTemp) {
     time_t now = time(0);
     struct tm *ltm = localtime(&now);
 
@@ -59,19 +59,19 @@ void printBigTime(const FontArray& font, std::string& location, std::string& dat
 
     int charHeight = font[0].size();
     int charWidth  = getFontMaxVisualWidth(font);
-    int clockWidth = 8 * (charWidth);  // 8 Zeichen, Abstand
+    int clockWidth = 8 * (charWidth);  // 8 Character, Distance
     int clockHeight = charHeight + 2;
 
-    int startCol = std::max(1, (termWidth - clockWidth) / 2); // ANSI min. Spalte 1
+    int startCol = std::max(1, (termWidth - clockWidth) / 2); // ANSI min. Column 1
     int startRow = std::max(0, (termHeight - clockHeight) / 2);
 
-    // Bildschirm löschen
+    // Clear screem
     std::cout << "\033[2J\033[H";
 
-    // Stadt anzeigen
+    // Display Location
     printCentered(location, startRow, termWidth);
 
-    // Uhr ausgeben
+    // Display Time
     for (int row = 0; row < charHeight; ++row) {
         std::cout << "\033[" << (startRow + 2 + row) << ";" << startCol << "H";
         for (int i = 0; i < 8; ++i) {
@@ -79,9 +79,10 @@ void printBigTime(const FontArray& font, std::string& location, std::string& dat
         }
     }
 
+    // Display Date & Temp
     printCentered(dateAndTemp, startRow + charHeight + 3, termWidth);
 
-    // Cursor ganz nach unten setzen (optisch sauber)
+    // Move cursor to the bottom of the terminal (for clean visual output)
     std::cout << "\033[" << termHeight << ";1H";
 
     std::cout.flush();
@@ -111,7 +112,7 @@ bool parseArgs(int argc, char* argv[]) {
 
         if (arg == "style") {
             showStyles();
-            return false; // Stop execution after help message
+            return false; // Stop execution after style message
         }
 
         // When using '-c'
@@ -173,13 +174,13 @@ int main(int argc, char* argv[]) {
     enableRawMode();
 
     while (true) {
-        printBigTime(selectedFont, location, dateAndTemp);
+        printInformation(selectedFont, location, dateAndTemp);
         std::this_thread::sleep_for(std::chrono::seconds(1));
 
         if (kbhit()) {
             char ch;
             read(STDIN_FILENO, &ch, 1);
-            if (ch == 'q' || ch == 27) break; // 'q' oder ESC
+            if (ch == 'q' || ch == 27) break; // 'q' or ESC
         }
     }
 

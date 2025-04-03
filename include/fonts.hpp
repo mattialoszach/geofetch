@@ -4,7 +4,9 @@
 
 using FontArray = std::vector<std::vector<std::string>>;
 
-// BLOCK-Stil (Standard Font)
+// ========== Available Styles / Fonts ==========
+
+// BLOCK-Style (Standard Font)
 FontArray BLOCK_DIGITS = {
     { "  ███  ", " █   █ ", " █   █ ", " █   █ ", " █   █ ", " █   █ ", "  ███  " },  // 0
     { "   █   ", "  ██   ", "   █   ", "   █   ", "   █   ", "   █   ", "  ███  " },  // 1
@@ -19,7 +21,7 @@ FontArray BLOCK_DIGITS = {
     { "       ", "   █   ", "   █   ", "       ", "   █   ", "   █   ", "       " }   // :
 };
 
-// SLIM-Stil
+// SLIM-Style
 FontArray SLIM_DIGITS = {
     { " _ ", "| |", "| |", "| |", "| |", "|_|", "   " },  // 0
     { "   ", "  |", "  |", "  |", "  |", "  |", "   " },  // 1
@@ -34,7 +36,7 @@ FontArray SLIM_DIGITS = {
     { "   ", " . ", "   ", "   ", " . ", "   ", "   " }   // :
 };
 
-// 3D-Stil (Standard Font)
+// SHADOW-Style
 FontArray SHADOW_DIGITS = {
     { " ██████╗  ", "██╔═████╗ ", "██║██╔██║ ", "████╔╝██║ ", "╚██████╔╝ ", " ╚═════╝  " },         // 0
     { " ██╗ ", "███║ ", "╚██║ ", " ██║ ", " ██║ ", " ╚═╝ " },                                       // 1
@@ -49,7 +51,7 @@ FontArray SHADOW_DIGITS = {
     { "      ", " ██╗  ", " ╚═╝  ", "      ", " ██╗  ", " ╚═╝  " },                                 // :
 };
 
-// Name → Font-Zuordnung
+// Name → Font-Assignment
 const std::map<std::string, const FontArray*> FONT_MAP = {
     {"block", &BLOCK_DIGITS},
     {"slim",  &SLIM_DIGITS},

@@ -2,11 +2,11 @@
 #include <string>
 #include <tuple>
 
-// Liefert Stadt, Region, Land
+// Outputs City, Region, Country
 std::tuple<std::string, std::string, std::string> getCityRegionCountry();
 
-// Holt Temperatur von wttr.in für eine Stadt
+// Outputs Temperature using wttr.in for a city
 std::string getTemperature(const std::string& city);
 
-// Gibt aktuelles Datum als dd.mm.yyyy zurück
+// Outputs current Date as dd.mm.yyyy (European System)
 std::string getCurrentDate();

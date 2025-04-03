@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 
-const std::string RESET   = "\033[0m";  // Reset zur Standardfarbe
+const std::string RESET   = "\033[0m";
 const std::string RED     = "\033[31m";
 const std::string GREEN   = "\033[32m";
 const std::string YELLOW  = "\033[33m";
@@ -23,7 +23,6 @@ std::string fontStyle = "block";
 
 struct termios orig_termios;
 
-// Terminalgröße abfragen
 int getTerminalWidth() {
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -36,11 +35,12 @@ int getTerminalHeight() {
     return w.ws_row;
 }
 
-// UTF-8: Zeichenbreite korrekt zählen (sichtbare Zeichen)
+// Count the number of visible (display) characters in a UTF-8 string.
+// Only count UTF-8 lead bytes (i.e., ignore continuation bytes).
 int countDisplayChars(const std::string& line) {
     int count = 0;
     for (unsigned char c : line) {
-        if ((c & 0xC0) != 0x80) count++; // Nur UTF-8 Lead-Bytes zählen
+        if ((c & 0xC0) != 0x80) count++; // Count only UTF-8 lead bytes
     }
     return count;
 }

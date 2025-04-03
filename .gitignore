@@ -1,0 +1,4 @@
+geofetch
+*.o
+*.DS_Store
+*.vscode
