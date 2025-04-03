@@ -5,7 +5,8 @@ It displays a **large, customizable clock**, your **current location**, **date**
 
 ---
 <img src="img/terminal1.png" alt="geofetch Screenshot" width="600">
-<img src="img/terminal2.png" alt="geofetch Screenshot" width="600">
+<img src="img/terminal3.png" alt="geofetch Screenshot" width="600">
+<img src="img/terminal4.png" alt="geofetch Screenshot" width="600">
 
 ## ✨ Features
 
