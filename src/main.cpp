@@ -172,7 +172,7 @@ int main(int argc, char* argv[]) {
         for (auto& [name, _] : FONT_MAP) {
             std::cerr << "  - " << name << "\n";
         }
-        std::cerr << "Use './geofetch style' to list styles.\n";
+        std::cerr << "Use 'geofetch style' to list styles.\n";
         return 1;
     }
 
@@ -185,7 +185,7 @@ int main(int argc, char* argv[]) {
     std::string currentDate = getCurrentDate();
     std::string temperature = getTemperature(city);
 
-    std::string location = "@ " + region + ", " + country;
+    std::string location = "⚑ " + region + ", " + country;
     std::string dateAndTemp = currentDate + " | " + temperature;
 
     std::cout << color;
