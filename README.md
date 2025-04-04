@@ -53,7 +53,7 @@ geofetch help           # Show help
 geofetch style          # Show available font styles
 ```
 Available styles and colors:
-- Fonts: block, slim, shadow, soft
+- Fonts: block, slim, shadow, soft, neo
 - Colors: red, green, yellow, blue, magenta, cyan, white
 
 ## ⚠️ Platform Support
