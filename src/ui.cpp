@@ -47,9 +47,9 @@ int countDisplayChars(const std::string& line) {
 
 int getFontMaxVisualWidth(const FontArray& font) {
     int maxWidth = 0;
-    for (int d = 0; d < 11; ++d) {
-        for (int row = 0; row < 7; ++row) {
-            int w = countDisplayChars(font[d][row]);
+    for (const auto& digit : font) {
+        for (const auto& line : digit) {
+            int w = countDisplayChars(line);
             if (w > maxWidth) maxWidth = w;
         }
     }
