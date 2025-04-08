@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 #include <map>
 
 using FontArray = std::vector<std::vector<std::string>>;

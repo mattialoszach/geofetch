@@ -17,7 +17,9 @@
 void disableRawMode() {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
     std::cout << "\033[?25h"; // Make Cursor visible
+    std::cout << "\033[0m"; // Reset colors
     std::cout << "\033[2J\033[H"; // Clear screen
+    std::cout.flush();
 }
 
 void enableRawMode() {
@@ -205,5 +207,6 @@ int main(int argc, char* argv[]) {
 
     disableRawMode();
 
+    std::cout << RESET << std::endl; // Clean exit
     return 0;
 }
