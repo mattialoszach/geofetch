@@ -57,7 +57,7 @@ Available styles and colors:
 - Colors: red, green, yellow, blue, magenta, cyan, white
 
 ## ⚠️ Platform Support
-Currently tested on macOS only
+Currently tested on macOS and Linux only
 
 ## 🚧 Status
 geofetch is under active development
