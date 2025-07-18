@@ -4,9 +4,10 @@
 It displays a **large, customizable clock**, your **current location**, **date**, and **temperature**, all perfectly centered in your terminal window – with style.
 
 ---
-<img src="img/terminal1.png" alt="geofetch Screenshot" width="600">
-<img src="img/terminal3.png" alt="geofetch Screenshot" width="600">
+<img src="img/terminal.png" alt="geofetch Screenshot" width="600">
 <img src="img/terminal4.png" alt="geofetch Screenshot" width="600">
+<img src="img/terminal3.png" alt="geofetch Screenshot" width="600">
+<img src="img/terminal1.png" alt="geofetch Screenshot" width="600">
 
 ## ✨ Features
 
